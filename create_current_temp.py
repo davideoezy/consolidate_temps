@@ -50,8 +50,6 @@ def on_message(client, userdata, msg):
     data = str(msg.payload.decode("utf-8"))
     jsonData=json.loads(data)    
 
-    print(jsonData)
-
     if topic == topic_status_lounge:
         lounge_status = jsonData["status"]
 
@@ -81,8 +79,7 @@ def on_message(client, userdata, msg):
 
     dict_msg = {"CurrentTemp":currentTemp}
 
-    mqtt_helper.publish_generic_message(topic = output_topic, payload=msg)
-    
+    mqtt_helper.publish_generic_message(output_topic, dict_msg)
     mqtt_helper.publish_status()
 
 
