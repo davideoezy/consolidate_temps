@@ -38,12 +38,12 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    global lounge_temp
-    global lounge_status
-    global master_temp
-    global master_status
-    global joel_temp
-    global joel_status    
+    # global lounge_temp
+    # global lounge_status
+    # global master_temp
+    # global master_status
+    # global joel_temp
+    # global joel_status    
 
 
     topic = msg.topic
