@@ -81,11 +81,11 @@ def on_message(client, userdata, msg):
 
 
     print(dict_msg)
-    msg = json.dumps(dict_msg)
-    # mqtt_helper.publish_generic_message(output_topic, dict_msg)
-    client.publish(output_topic, payload=msg, qos=0, retain=False)
+    # msg = json.dumps(dict_msg)
+    # # mqtt_helper.publish_generic_message(output_topic, dict_msg)
+    # client.publish(output_topic, payload=msg, qos=0, retain=False)
     
-    mqtt_helper.publish_status()
+    # mqtt_helper.publish_status()
 
 
 client = mqtt.Client()
