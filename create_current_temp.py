@@ -38,12 +38,12 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    # global lounge_temp
-    # global lounge_status
-    # global master_temp
-    # global master_status
-    # global joel_temp
-    # global joel_status    
+    global lounge_temp
+    global lounge_status
+    global master_temp
+    global master_status
+    global joel_temp
+    global joel_status    
 
 
     topic = msg.topic
@@ -81,13 +81,9 @@ def on_message(client, userdata, msg):
 
     dict_msg = {"CurrentTemp":currentTemp}
 
-
-    print(dict_msg)
-    # msg = json.dumps(dict_msg)
-    # # mqtt_helper.publish_generic_message(output_topic, dict_msg)
-    # client.publish(output_topic, payload=msg, qos=0, retain=False)
+    mqtt_helper.publish_generic_message(topic = output_topic, payload=msg)
     
-    # mqtt_helper.publish_status()
+    mqtt_helper.publish_status()
 
 
 client = mqtt.Client()
@@ -95,7 +91,6 @@ client.on_connect = on_connect
 client.on_message = on_message
 
 client.connect(server_address)
-
 
 # logging.basicConfig(level=logging.DEBUG)
 # logger = logging.getLogger(__name__)
