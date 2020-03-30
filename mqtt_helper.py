@@ -29,7 +29,8 @@ class mqtt_helper():
         msg = json.dumps(dict_msg)
         self.client.publish(self.value_topic,msg)
 
-    def publish_generic_message(self, topic, msg):
+    def publish_generic_message(self, topic, dict_msg):
+        msg = json.dumps(dict_msg)
         self.client.publish(topic,payload = msg)    
 
     def publish_status(self):

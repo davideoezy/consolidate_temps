@@ -3,6 +3,8 @@ import json
 from mqtt_helper import mqtt_helper
 import argparse
 import logging
+import context
+
 
 location = "temp_aggregator"
 
@@ -78,11 +80,11 @@ def on_message(client, userdata, msg):
         currentTemp = joel_temp
 
     dict_msg = {"CurrentTemp":currentTemp}
-    msg = json.dumps(dict_msg)
+
 
     print(dict_msg)
 
-    mqtt_helper.publish_generic_message(output_topic, msg)
+    mqtt_helper.publish_generic_message(output_topic, dict_msg)
     
     mqtt_helper.publish_status()
 
