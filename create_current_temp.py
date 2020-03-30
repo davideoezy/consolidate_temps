@@ -77,17 +77,18 @@ def on_message(client, userdata, msg):
     else:
         currentTemp = joel_temp
 
-    dict_msg = {"CurrentTemp":currentTemp}
+    msg = {"CurrentTemp":currentTemp}
+    print(msg)
 
-    mqtt_helper.publish_generic_message(output_topic, dict_msg)
+    mqtt_helper.publish_generic_message(output_topic, msg)
     mqtt_helper.publish_status()
 
 
-client = mqtt.Client()
-client.on_connect = on_connect
-client.on_message = on_message
+client1 = mqtt.Client()
+client1.on_connect = on_connect
+client1.on_message = on_message
 
-client.connect(server_address)
+client1.connect(server_address)
 
 # logging.basicConfig(level=logging.DEBUG)
 # logger = logging.getLogger(__name__)
@@ -97,6 +98,6 @@ client.connect(server_address)
 # handles reconnecting.
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
-client.loop_forever()
+client1.loop_forever()
 
 
