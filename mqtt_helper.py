@@ -30,7 +30,7 @@ class mqtt_helper():
         self.client.publish(self.value_topic,msg)
 
     def publish_generic_message(self, topic, msg):
-        self.client.publish(topic,msg)    
+        self.client.publish(topic,payload = msg)    
 
     def publish_status(self):
         online_msg = json.dumps({"location":self.location, "status":"online"})

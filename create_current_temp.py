@@ -80,6 +80,8 @@ def on_message(client, userdata, msg):
     dict_msg = {"CurrentTemp":currentTemp}
     msg = json.dumps(dict_msg)
 
+    print(dict_msg)
+
     mqtt_helper.publish_generic_message(output_topic, msg)
     
     mqtt_helper.publish_status()
