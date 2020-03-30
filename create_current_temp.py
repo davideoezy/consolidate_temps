@@ -1,6 +1,8 @@
 import paho.mqtt.client as mqtt
 import json
 from mqtt_helper import mqtt_helper
+import argparse
+import logging
 
 location = "temp_aggregator"
 
@@ -89,8 +91,15 @@ client.on_message = on_message
 
 client.connect(server_address)
 
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+client.enable_logger(logger)
+
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
 client.loop_start()
+
+
