@@ -50,6 +50,8 @@ def on_message(client, userdata, msg):
     data = str(msg.payload.decode("utf-8"))
     jsonData=json.loads(data)    
 
+    print(jsonData)
+
     if topic == topic_status_lounge:
         lounge_status = jsonData["status"]
 
@@ -68,6 +70,8 @@ def on_message(client, userdata, msg):
     elif topic == topic_temp_joel:
         joel_temp = jsonData["temperature"]
 
+    print(lounge_status, lounge_temp, master_status, master_temp, joel_status, joel_temp)
+
     if lounge_status == "online":
         currentTemp = lounge_temp
     
@@ -78,6 +82,8 @@ def on_message(client, userdata, msg):
         currentTemp = joel_temp
 
     msg = {"CurrentTemp":currentTemp}
+
+    print(msg)
 
     mqtt_helper.publish_generic_message(output_topic, msg)
     mqtt_helper.publish_status()
