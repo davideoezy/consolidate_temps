@@ -8,5 +8,4 @@ RUN pip install -r requirements.txt
 WORKDIR /.
 COPY . /
 
-#CMD [ "python", "./create_current_temp.py" ]
-CMD [ "/bin/bash/"]
+CMD [ "python", "./create_current_temp.py" ]
