@@ -3,8 +3,6 @@ import json
 from mqtt_helper import mqtt_helper
 import argparse
 import logging
-import context
-
 
 location = "temp_aggregator"
 
