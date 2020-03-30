@@ -50,6 +50,8 @@ def on_message(client, userdata, msg):
     data = str(msg.payload.decode("utf-8"))
     jsonData=json.loads(data)    
 
+    print(jsonData)
+
     if topic == topic_status_lounge:
         lounge_status = jsonData["status"]
 
@@ -95,9 +97,9 @@ client.on_message = on_message
 client.connect(server_address)
 
 
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
-client.enable_logger(logger)
+# logging.basicConfig(level=logging.DEBUG)
+# logger = logging.getLogger(__name__)
+# client.enable_logger(logger)
 
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.
