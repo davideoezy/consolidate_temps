@@ -78,7 +78,6 @@ def on_message(client, userdata, msg):
         currentTemp = joel_temp
 
     msg = {"CurrentTemp":currentTemp}
-    print(msg)
 
     mqtt_helper.publish_generic_message(output_topic, msg)
     mqtt_helper.publish_status()
