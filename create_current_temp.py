@@ -105,6 +105,6 @@ client.connect(server_address)
 # handles reconnecting.
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
-client.loop_start()
+client.loop_forever()
 
 
