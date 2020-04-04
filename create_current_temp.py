@@ -90,14 +90,10 @@ def on_message(client, userdata, msg):
 
     currentTemp = round(statistics.mean(temp_list),1)
 
-    print(temp_list)
-
     msg = {"CurrentTemp":currentTemp}
 
-    print(msg)
-
-   # mqtt_helper.publish_generic_message(output_topic, msg)
-   # mqtt_helper.publish_status()
+    mqtt_helper.publish_generic_message(output_topic, msg)
+    mqtt_helper.publish_status()
 
 
 client1 = mqtt.Client()
