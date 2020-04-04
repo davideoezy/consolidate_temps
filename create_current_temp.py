@@ -3,6 +3,7 @@ import json
 from mqtt_helper import mqtt_helper
 import argparse
 import logging
+import statistics
 
 location = "temp_aggregator"
 
@@ -27,6 +28,8 @@ lounge_status = "online"
 master_status = "online"
 joel_status = "online"
 
+temp_list = []
+
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -44,7 +47,7 @@ def on_message(client, userdata, msg):
     global master_status
     global joel_temp
     global joel_status    
-
+    global temp_list
 
     topic = msg.topic
     data = str(msg.payload.decode("utf-8"))
@@ -73,20 +76,28 @@ def on_message(client, userdata, msg):
     print(lounge_status, lounge_temp, master_status, master_temp, joel_status, joel_temp)
 
     if lounge_status == "online":
-        currentTemp = lounge_temp
+        temp = lounge_temp
     
     elif master_status == "online":
-        currentTemp = lounge_temp
+        temp = lounge_temp
 
     else:
-        currentTemp = joel_temp
+        temp = joel_temp
+
+    temp_list.append(temp)
+
+    temp_list = temp_list[-3:]
+
+    currentTemp = round(statistics.mean(temp_list),1)
+
+    print(temp_list)
 
     msg = {"CurrentTemp":currentTemp}
 
     print(msg)
 
-    mqtt_helper.publish_generic_message(output_topic, msg)
-    mqtt_helper.publish_status()
+   # mqtt_helper.publish_generic_message(output_topic, msg)
+   # mqtt_helper.publish_status()
 
 
 client1 = mqtt.Client()
