@@ -1,9 +1,8 @@
 import paho.mqtt.client as mqtt
 import json
 from mqtt_helper import mqtt_helper
-import argparse
-import logging
 import statistics
+from datetime import datetime
 
 location = "temp_aggregator"
 
@@ -30,6 +29,8 @@ joel_status = "online"
 
 temp_list = []
 
+period_start = datetime.now()
+
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -48,6 +49,7 @@ def on_message(client, userdata, msg):
     global joel_temp
     global joel_status    
     global temp_list
+    global period_start
 
     topic = msg.topic
     data = str(msg.payload.decode("utf-8"))
@@ -92,8 +94,13 @@ def on_message(client, userdata, msg):
 
     msg = {"CurrentTemp":currentTemp}
 
-    mqtt_helper.publish_generic_message(output_topic, msg)
-    mqtt_helper.publish_status()
+    if (datetime.now() - period_start).total_seconds() > 5:
+        
+        mqtt_helper.publish_generic_message(output_topic, msg)
+
+        period_start = datetime.now()
+
+        mqtt_helper.publish_status()
 
 
 client1 = mqtt.Client()
@@ -102,14 +109,6 @@ client1.on_message = on_message
 
 client1.connect(server_address)
 
-# logging.basicConfig(level=logging.DEBUG)
-# logger = logging.getLogger(__name__)
-# client.enable_logger(logger)
-
-# Blocking call that processes network traffic, dispatches callbacks and
-# handles reconnecting.
-# Other loop*() functions are available that give a threaded interface and a
-# manual interface.
 client1.loop_forever()
 
 
