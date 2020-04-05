@@ -55,7 +55,7 @@ def on_message(client, userdata, msg):
     data = str(msg.payload.decode("utf-8"))
     jsonData=json.loads(data)    
 
-    print(jsonData)
+    #print(jsonData)
 
     if topic == topic_status_lounge:
         lounge_status = jsonData["status"]
@@ -75,7 +75,7 @@ def on_message(client, userdata, msg):
     elif topic == topic_temp_joel:
         joel_temp = jsonData["temperature"]
 
-    print(lounge_status, lounge_temp, master_status, master_temp, joel_status, joel_temp)
+    #print(lounge_status, lounge_temp, master_status, master_temp, joel_status, joel_temp)
 
     if lounge_status == "online":
         temp = lounge_temp
