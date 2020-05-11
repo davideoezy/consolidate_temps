@@ -93,7 +93,7 @@ def on_message(client, userdata, msg):
         temp = lounge_temp
     
     elif master_status == "online":
-        temp = lounge_temp
+        temp = master_temp
 
     elif layla_status == "online":
         temp = layla_temp
